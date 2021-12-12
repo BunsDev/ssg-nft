@@ -1,13 +1,13 @@
 .App {
   height: 100vh;
-  background-color: #F7E7CE;
+  background-color: #f7e7ce;
   overflow: auto;
   text-align: center;
 }
 
 .container {
   height: 100%;
-  background-color: #F7E7CE;
+  background-color: #f7e7ce;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -49,7 +49,7 @@
 }
 
 .errorMsg {
-  color: #E53935;
+  color: #e53935;
   font-weight: bold;
 }
 

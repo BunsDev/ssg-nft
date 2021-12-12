@@ -41,6 +41,7 @@
     ]
   },
   "devDependencies": {
-    "ethers": "^5.5.2"
+    "ethers": "^5.5.2",
+    "prettier": "2.5.1"
   }
 }

@@ -1,10 +1,10 @@
 /// <reference types="react-scripts" />
 
 interface Window {
-    ethereum: any;
+  ethereum: any;
 }
 
 declare module "*.svg" {
-    const content: any;
-    export default content;
+  const content: any;
+  export default content;
 }
