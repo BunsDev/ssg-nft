@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-export const FontStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
   @font-face {
     font-family: 'Roboto';
     src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
@@ -32,9 +32,13 @@ export const FontStyles = createGlobalStyle`
   text-rendering: optimizeLegibility;
   -webkit-tap-highlight-color: transparent;
   color: #112035;
+  }
 
   &:focus {
     outline: none;
   }
-}
+
+  body {
+    font-family: 'Roboto', sans-serif;
+  }
 `;

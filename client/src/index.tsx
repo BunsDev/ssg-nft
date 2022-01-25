@@ -1,15 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { FontStyles } from "./fontStyles";
-import "./index.css";
-import App from "./components/App/App";
+import { GlobalStyles } from "./globalStyles";
+
+import { Landing } from "./pages/Landing";
+import { Success } from "./pages/Success";
+
+import { NftProvider } from "./utils/nftContext";
+
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <FontStyles />
-    <App />
+    <GlobalStyles />
+    <NftProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/success" element={<Success />} />
+        </Routes>
+      </BrowserRouter>
+    </NftProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
