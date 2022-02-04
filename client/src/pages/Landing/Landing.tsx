@@ -3,6 +3,8 @@ import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { ethers, Contract } from "ethers";
 
+import { Modal } from "../../components/Modal";
+
 import twitterLogo from "../../assets/twitter-logo.svg";
 import cautionIcon from "../../assets/caution.svg";
 
@@ -22,8 +24,9 @@ export const Landing = () => {
   const [currWallet, setCurrWallet] = useState("");
   const [nftContract, setNftContract] = useState<Contract | null>(null);
 
-  const [errorMsg, setErrorMsg] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showConnectModal, setShowConnectModal] = useState<boolean>(false);
 
   const { setNftLink, totalMinted, setTotalMinted } = useNftContext();
 
@@ -43,9 +46,13 @@ export const Landing = () => {
   };
 
   useEffect(() => {
-    window.ethereum.on("chainChanged", networkSwitch);
+    const { ethereum } = window;
 
-    return () => window.ethereum.removeListener("chainChanged", networkSwitch);
+    if (ethereum) {
+      ethereum.on("chainChanged", networkSwitch);
+
+      return () => ethereum.removeListener("chainChanged", networkSwitch);
+    }
   }, []);
 
   useEffect(() => {
@@ -70,7 +77,6 @@ export const Landing = () => {
     const { ethereum } = window;
 
     if (!ethereum) {
-      alert("Please install a wallet");
       return;
     }
 
@@ -93,7 +99,7 @@ export const Landing = () => {
       const { ethereum } = window;
 
       if (!ethereum) {
-        alert("Please install a wallet");
+        setShowConnectModal(true);
         return;
       }
 
@@ -193,6 +199,12 @@ export const Landing = () => {
 
   return (
     <Container>
+      {showConnectModal && (
+        <Modal
+          showModal={showConnectModal}
+          closeModal={() => setShowConnectModal(false)}
+        />
+      )}
       <Content>
         <LeftSide>
           <LeftContent>
@@ -242,7 +254,11 @@ const Container = styled.div`
 const Content = styled.div`
   height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template: 1fr 1fr / none;
+
+  @media (min-width: 768px) {
+    grid-template: none / 1fr 1fr;
+  }
 `;
 
 const LeftSide = styled.div`
